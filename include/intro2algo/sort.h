@@ -5,16 +5,17 @@
 #ifndef HELLO_INTRO2ALGO_SORT_H
 #define HELLO_INTRO2ALGO_SORT_H
 
-#include <concepts>
+#include "utility.h"
 #include <functional>
-#include <vector>
 
 namespace hi2a::sort
 {
     namespace inplace
     {
-        template<std::totally_ordered T>
-        constexpr void insertionSort(std::vector<T>& array, std::function<bool(T, T)> compare = std::less{})
+        template<sortable_range T>
+        constexpr void insertionSort(T& array,
+                                     std::function<bool(typename T::value_type,
+                                                        typename T::value_type)> compare = std::less{})
         {
             if (array.empty())
             {
