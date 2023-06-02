@@ -6,6 +6,7 @@
 #define HELLO_INTRO2ALGO_SORT_H
 
 #include <concepts>
+#include <functional>
 #include <vector>
 
 namespace hi2a::sort
@@ -13,22 +14,22 @@ namespace hi2a::sort
     namespace inplace
     {
         template<std::totally_ordered T>
-        void insertionSort(std::vector<T>& array)
+        constexpr void insertionSort(std::vector<T>& array, std::function<bool(T, T)> compare = std::less{})
         {
             if (array.empty())
             {
                 return;
             }
-            for (auto eit{ std::begin(array) + 1 }; eit != std::end(array); ++eit)
+            for (auto eit{ std::next(std::begin(array)) }; eit != std::end(array); ++eit)
             {
                 auto value{ *eit };
-                auto iit{ eit - 1 };
-                while (iit != std::begin(array) - 1 && *iit > value)
+                auto iit{ std::prev(eit) };
+                while (iit != std::prev(std::begin(array)) && !compare(*iit, value))
                 {
-                    *(iit + 1) = *iit;
+                    *std::next(iit) = *iit;
                     --iit;
                 }
-                *(iit + 1) = value;
+                *std::next(iit) = value;
             }
         }
     }
