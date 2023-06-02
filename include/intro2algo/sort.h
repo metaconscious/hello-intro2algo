@@ -21,16 +21,16 @@ namespace hi2a::sort
             {
                 return;
             }
-            for (auto eit{ std::next(std::begin(array)) }; eit != std::end(array); ++eit)
+            for (auto outerIter{ std::next(std::begin(array)) }; outerIter != std::end(array); ++outerIter)
             {
-                auto value{ *eit };
-                auto iit{ std::prev(eit) };
-                while (iit != std::prev(std::begin(array)) && !compare(*iit, value))
+                auto currentValue{ *outerIter };
+                auto innerIter{ std::prev(outerIter) };
+                while (innerIter != std::prev(std::begin(array)) && !compare(*innerIter, currentValue))
                 {
-                    *std::next(iit) = *iit;
-                    --iit;
+                    *std::next(innerIter) = *innerIter;
+                    --innerIter;
                 }
-                *std::next(iit) = value;
+                *std::next(innerIter) = currentValue;
             }
         }
     }
