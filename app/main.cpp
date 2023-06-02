@@ -32,8 +32,8 @@ requires(T array) {
 
 template<typename T>
 concept sized_array =
+readonly_array<T> and
 requires(T sized_array) {
-    requires readonly_array<T>;
     { sized_array.size() }->std::same_as<typename T::size_type>;
 };
 
