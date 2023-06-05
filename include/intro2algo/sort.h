@@ -17,7 +17,7 @@ namespace hi2a::sort
                                      std::function<bool(typename T::value_type,
                                                         typename T::value_type)> compare = std::less{})
         {
-            if (array.empty())
+            [[unlikely]] if (array.empty())
             {
                 return;
             }
