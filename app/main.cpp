@@ -28,12 +28,12 @@ int main(int argc, const char* argv[])
     std::cout << "Sort took " << std::chrono::duration_cast<std::chrono::duration<double>>(finish - start).count()
               << " seconds.\n";
 
-    std::cout << "successfully sorted? " << std::boolalpha << same << '\n';
+    std::cout << "successfully sorted? " << std::boolalpha << same << std::noboolalpha << '\n';
 
     if (!same)
     {
-        std::cout << std::noboolalpha << "Original: " << original << '\n';
-        std::cout << std::noboolalpha << "Sorted: " << randomized << '\n';
+        std::cout << "Original: " << original << '\n';
+        std::cout << "Sorted: " << randomized << '\n';
     }
 
     return 0;
