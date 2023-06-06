@@ -1,4 +1,5 @@
 #include "helper.h"
+#include "intro2algo/numeric.h"
 #include "intro2algo/sort.h"
 #include <algorithm>
 #include <chrono>
@@ -9,8 +10,11 @@
 
 int main(int argc, const char* argv[])
 {
-    std::vector<int> original(1e4);
-    std::iota(original.begin(), original.end(), 1);
+    constexpr int initialValue{ 1 };
+    constexpr auto size{ static_cast<int>(1e4) };
+
+    std::vector<int> original(size);
+    std::iota(original.begin(), original.end(), initialValue);
     std::vector randomized{ original };
     std::random_device r{};
     std::seed_seq seeds{ r(), r(), r(), r(), r(), r() };
@@ -29,6 +33,11 @@ int main(int argc, const char* argv[])
               << " seconds.\n";
 
     std::cout << "successfully sorted? " << std::boolalpha << same << std::noboolalpha << '\n';
+
+    auto series{ hi2a::arithmeticSeries(initialValue, size, size) };
+    auto sum{ hi2a::sum(randomized) };
+
+    std::cout << "Sum == series? " << std::boolalpha << (sum == series) << std::noboolalpha << '\n';
 
     if (!same)
     {
