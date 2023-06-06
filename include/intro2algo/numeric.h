@@ -5,20 +5,33 @@
 #ifndef HELLO_INTRO2ALGO_NUMERIC_H
 #define HELLO_INTRO2ALGO_NUMERIC_H
 
+#include "utility.h"
+#include <cassert>
+#include <concepts>
 #include <cstddef>
 
 namespace hi2a
 {
-    template<typename T>
-    constexpr inline T arithmeticSeries(T firstTerm, T lastTerm, std::size_t length)
+    template<std::integral T, std::unsigned_integral Size>
+    constexpr inline T arithmeticSeries(T firstTerm, T lastTerm, Size length) noexcept
     {
         return (firstTerm + lastTerm) * length / 2;
     }
 
-    template<typename T>
-    constexpr typename T::value_type sum(T range)
+    template<std::integral T, std::integral Size>
+    constexpr inline T arithmeticSeries(T firstTerm, T lastTerm, Size length)
     {
-        typename T::value_type sum{ 0 };
+        if (length < 0)
+        {
+            throw std::invalid_argument("length must be larger than or equal to zero");
+        }
+        return (firstTerm + lastTerm) * length / 2;
+    }
+
+    template<value_addable_range T>
+    constexpr typename std::ranges::range_value_t<T> sum(T range)
+    {
+        typename std::ranges::range_value_t<T> sum{ 0 };
         for (auto&& e: range)
         {
             sum += e;

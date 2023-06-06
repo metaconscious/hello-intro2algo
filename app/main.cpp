@@ -10,10 +10,11 @@
 
 int main(int argc, const char* argv[])
 {
-    constexpr int initialValue{ 1 };
-    constexpr auto size{ static_cast<int>(1e4) };
+    using value_type = int;
+    constexpr value_type initialValue{ 1 };
+    constexpr auto size{ static_cast<value_type>(1e4) };
 
-    std::vector<int> original(size);
+    std::vector<value_type> original(size);
     std::iota(original.begin(), original.end(), initialValue);
     std::vector randomized{ original };
     std::random_device r{};
