@@ -14,6 +14,7 @@ namespace hi2a::sort
     {
         template<sortable_range T, typename Fn = std::function<bool(std::ranges::range_value_t<T>,
                                                                     std::ranges::range_value_t<T>)>>
+        requires std::predicate<Fn, std::ranges::range_value_t<T>, std::ranges::range_value_t<T>>
         constexpr void insertionSort(T& array, Fn compare = std::less{})
         {
             [[unlikely]] if (array.empty())
