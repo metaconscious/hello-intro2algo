@@ -12,10 +12,9 @@ namespace hi2a::sort
 {
     namespace inplace
     {
-        template<sortable_range T>
-        constexpr void insertionSort(T& array,
-                                     std::function<bool(typename std::ranges::range_value_t<T>,
-                                                        typename std::ranges::range_value_t<T>)> compare = std::less{})
+        template<sortable_range T, typename Fn = std::function<bool(std::ranges::range_value_t<T>,
+                                                                    std::ranges::range_value_t<T>)>>
+        constexpr void insertionSort(T& array, Fn compare = std::less{})
         {
             [[unlikely]] if (array.empty())
             {
